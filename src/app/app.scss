@@ -1,0 +1,74 @@
+// http://ionicframework.com/docs/theming/
+
+
+// App Global Sass
+// --------------------------------------------------
+// Put style rules here that you want to apply globally. These
+// styles are for the entire app and not just one component.
+// Additionally, this file can be also used as an entry point
+// to import other Sass files to be included in the output CSS.
+//
+// Shared Sass variables, which can be used to adjust Ionic's
+// default Sass variables, belong in "theme/variables.scss".
+//
+// To declare rules for a specific mode, create a child rule
+// for the .md, .ios, or .wp mode classes. The mode class is
+// automatically applied to the <body> element in the app.
+@font-face {
+    font-family: 'zorgScoreFont';
+    src:  url('../assets/fonts/zorgScoreFont.eot?atsv3n');
+    src:  url('../assets/fonts/zorgScoreFont.eot?atsv3n#iefix') format('embedded-opentype'),
+      url('../assets/fonts/zorgScoreFont.ttf?atsv3n') format('truetype'),
+      url('../assets/fonts/zorgScoreFont.woff?atsv3n') format('woff'),
+      url('../assets/fonts/zorgScoreFont.svg?atsv3n#zorgScoreFont') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  [class^="zs-icon-"], [class*=" zs-icon-"] {
+    /* use !important to prevent issues with browser extensions that change fonts */
+    font-family: 'zorgScoreFont' !important;
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+  
+    /* Better Font Rendering =========== */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .zs-icon-spades:before {
+    content: "\e917";
+  }
+  .zs-icon-clubs:before {
+    content: "\e918";
+  }
+  .zs-icon-diamonds:before {
+    content: "\e919";
+  }
+  .zs-icon-heart:before {
+    content: "\e9da";
+  }
+
+
+  .zorg-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 5px 5px 10px;
+  }
+
+  .zorg-card-content {
+    background-color: color($colors, white);
+    * {
+      color: color($colors, text);
+    }
+  }
+
+  .text-uppercase {
+    text-transform: uppercase;
+  }
+  

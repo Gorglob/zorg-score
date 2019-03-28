@@ -1,0 +1,169 @@
+page-party-bet {
+    .party-bet-container{
+        background-color: white;
+        display: flex;
+        flex-direction: column; 
+        
+        .player-betting button,
+        .score-betting button,
+        .couleur-betting button {
+            flex: 1;
+            height: 50px;
+        }
+    }
+
+    .team-infos{
+        display: flex;
+        color: color($colors, text);
+        .team{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 75px;
+            margin: 5px;
+            .players {                    
+                text-align: center;
+            }
+
+            .bet {
+                flex: 1;                    
+            }
+
+            &.team1 {
+                border: solid 3px color($colors, danger);
+
+                &.active {
+                    background-color: rgba(35, 160, 198, 0.5);
+                }
+            }
+
+            &.team2 {                    
+                border: solid 3px color($colors, light);
+
+                &.active {
+                    background-color: rgba(133, 62, 106, 0.5);
+                }
+            }
+        }
+    }
+
+    .player-betting{
+        display: flex;
+        justify-content: space-around;
+        
+        // .player{
+        //     flex: 1;
+        //     height: 50px;
+        //     background-color: color($colors, danger);
+        //     display: flex;
+        //     align-items: center;
+        //     justify-content: center;
+        //     margin: 2px;
+
+        //     &:nth-child(even){
+        //         background-color: color($colors, light);
+        //     }
+        // }
+    }
+
+    .score-betting {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-weight: bold;
+
+        span{ 
+            // flex: none;
+            // border: solid 2px color($colors, danger);
+            // border-radius: 5px;
+            // display: flex;
+            // align-items: center;
+            // justify-content: center;
+            // margin: 2px;
+            // width: 60px;
+            // height: 35px;                
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+    }
+
+    .couleur-betting{
+        display: flex; 
+        justify-content: center;
+        flex-wrap: wrap;
+        .couleur-betting-top, .couleur-betting-bottom {
+            flex: 1;
+            display: flex;
+        }
+        .couleur{                
+            font-size: 2em;                
+            
+            .red {
+                color : color($colors, red);
+            }
+        }
+    }
+
+    .couleur-resume{            
+        display: flex;
+        align-items: center;
+        justify-content: center;            
+        flex: none;
+        .red {
+            color : color($colors, red);
+        }
+    }
+
+    .bet {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span{
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+    }
+
+    .dealer{
+        display: flex;
+        align-items: center;
+        margin: 5px;
+        color: color($colors, primary);
+
+        .select{
+            flex: 1;            
+            display: flex;
+            align-items: center;            
+            // max-width: 100%;
+        }
+    }
+
+    .bottom-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 4px;
+    }
+
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 0px 4px;
+
+        .button:last-child span{
+            color: color($colors, white);
+        }
+    }
+
+    img.win {
+        height: 100%;
+        width: auto;
+    }
+
+    .win-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}

@@ -1,0 +1,50 @@
+score-team {
+    padding: 5px;
+    display: block;
+    background-color: color($colors, white);
+    .score-team-container{
+        display: flex;
+        /* align-items: center; */
+        /* align-content: center; */
+
+        justify-content: space-between;
+
+        .team {
+            flex: 1;
+            display: flex;            
+
+            .team-members{
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+            }
+
+            .team-score {
+                span{
+                    font-size: 2em;
+                    font-weight: bold;
+                }
+                
+                &.loser {
+                    span {
+                        font-weight: normal;
+                    }
+                }
+
+                flex: 1;
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+
+                .team-diff{
+                    font-size: 1em;                    
+                }
+            }
+
+            .team-diff {
+                flex: 1;
+                color : color($colors, red);
+            }
+        }
+    }
+}

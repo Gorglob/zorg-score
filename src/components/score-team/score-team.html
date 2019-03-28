@@ -1,0 +1,22 @@
+<div class="score-team-container">
+  <div class="team team1">
+    <div class="team-members" *ngIf="party.currentTeam1">
+      <span>{{party.currentTeam1.player1.nickName}}</span>
+      <span>{{party.currentTeam1.player2.nickName}}</span>
+    </div>
+    <div class="team-score" [ngClass]="{'loser': party.scoreTeam1 < party.scoreTeam2}">
+      <span>{{party.scoreTeam1}}</span>
+      <span class="team-diff" *ngIf="party.scoreTeam1 < party.scoreTeam2">(-{{party.scoreTeam2 - party.scoreTeam1}})</span>
+    </div>    
+  </div>
+  <div class="team team2">
+    <div class="team-members" *ngIf="party.currentTeam2">
+      <span>{{party.currentTeam2.player1.nickName}}</span>
+      <span>{{party.currentTeam2.player2.nickName}}</span>
+    </div>
+    <div class="team-score" [ngClass]="{'loser': party.scoreTeam1 > party.scoreTeam2}">
+      <span>{{party.scoreTeam2}}</span>
+      <span class="team-diff" *ngIf="party.scoreTeam1 > party.scoreTeam2">(-{{party.scoreTeam1 - party.scoreTeam2}})</span>
+    </div>
+  </div>
+</div>

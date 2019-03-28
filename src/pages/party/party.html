@@ -1,0 +1,92 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <score-team [party]="currentParty" *ngIf="currentParty"></score-team>
+  <ion-card color="secondary">
+    <ion-card-header>
+      Paramètres de la partie
+    </ion-card-header>
+
+    <ion-card-content *ngIf="currentParty" no-padding>
+      <ion-list>
+        <ion-item>
+          <ion-label>Type de points :</ion-label>
+          <ion-select [(ngModel)]="currentParty.config.typeScoreAnnounced" interface="popover">
+            <ion-option value="true" selected="currentParty.config.typeScoreAnnounced">Annoncés</ion-option>
+            <ion-option value="false">Faits</ion-option>
+          </ion-select>
+        </ion-item>
+
+        <ion-item>
+          <ion-label>Score gagnant : <strong>{{currentParty.config.maxScore}}</strong>
+          </ion-label>
+          <ion-range min="500" max="3000" [(ngModel)]="currentParty.config.maxScore" color="secondary" step="100">
+            <ion-icon range-left small name="flag"></ion-icon>
+            <ion-icon range-right name="flag"></ion-icon>
+          </ion-range>
+        </ion-item>
+
+      </ion-list>
+    </ion-card-content>
+
+  </ion-card>
+  <ion-card color="secondary">
+    <ion-card-header class="players-card-header">
+      <span>Joueurs</span>
+      <button ion-button icon-only clear (click)="createPlayer()">
+        <ion-icon name="person-add" color="white"></ion-icon>
+      </button>
+    </ion-card-header>
+
+    <ion-card-content *ngIf="currentParty" no-padding class="players">
+      <div class="player-table">
+        <div class="row center-items">
+          <div class="player one" (click)="editPlayer(1)">
+            <div class="player-avatar">
+                <img src="{{getAvatar(currentParty.currentTeam1.player1.id)}}">
+            </div>
+            <div class="player-details">
+              {{getPlayerName(currentParty.currentTeam1.player1)}}
+            </div>
+          </div>
+        </div>
+        <div class="row spaced-items">
+          <div class="player two" (click)="editPlayer(2)">
+            <div class="player-avatar">
+                <img src="{{getAvatar(currentParty.currentTeam2.player1.id)}}">
+            </div>
+            <div class="player-details">
+              {{getPlayerName(currentParty.currentTeam2.player1)}}
+            </div>
+          </div>
+          <div class="player four" (click)="editPlayer(4)">
+            <div class="player-avatar">
+                <img src="{{getAvatar(currentParty.currentTeam2.player2.id)}}">
+            </div>
+            <div class="player-details">
+              {{getPlayerName(currentParty.currentTeam2.player2)}}
+            </div>
+          </div>
+        </div>
+        <div class="row center-items">
+          <div class="player three" (click)="editPlayer(3)">
+            <div class="player-avatar">
+                <img src="{{getAvatar(currentParty.currentTeam1.player2.id)}}">
+            </div>
+            <div class="player-details">
+              {{getPlayerName(currentParty.currentTeam1.player2)}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </ion-card-content>    
+  </ion-card>  
+  <div class="bottom-actions">
+      <button ion-button color="secondary" (click)="startParty()">COMMENCER</button>  
+  </div>  
+  
+</ion-content>

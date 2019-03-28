@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-navbar color="secondary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Liste des parties</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <!-- <h3>Ionic Menu Starter</h3>
+
+  <p>
+    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will show you the way.
+  </p>
+
+  <button ion-button secondary menuToggle>Toggle Menu</button> -->
+  <ion-card *ngIf="!parties || parties.length === 0">
+    <ion-card-content>
+      <p>Aucune partie trouvée</p>
+      <p>Pour créer une nouvelle partie, cliquez sur le bouton "+" qui se trouve en bas de l'écran</p>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="parties">
+    <ion-card *ngFor="let party of parties" color="secondary">
+      <ion-card-header class="zorg-card-header">
+        <span>Partie du {{party.partyDate | date : 'dd/MM/yyyy'}}</span>
+        <button ion-button icon-only clear (click)="editParty(party)">
+          <ion-icon name="create" color="white"></ion-icon>
+        </button>
+      </ion-card-header>
+      <ion-card-content class="zorg-card-content">
+        <score-team [party]="party" *ngIf="party"></score-team>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-fab right bottom>
+    <button ion-fab color="secondary" (click)="addParty()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

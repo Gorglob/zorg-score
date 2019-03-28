@@ -1,0 +1,59 @@
+<!--
+  Generated template for the PlayerListPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="secondary">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Liste des joueurs</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-searchbar [(ngModel)]="searchPlayerText" (ionInput)="filterPlayers($event)" placeholder="Rechercher un joueur"
+    debounce="1000"></ion-searchbar>
+  <ion-card *ngIf="!players || players.length == 0">
+    <ion-card-content>
+      <p>Aucun joueur trouvé</p>
+      <p>Pour créer un nouveau joueur, cliquez sur le bouton "+" qui se trouve en bas de l'écran</p>
+    </ion-card-content>
+  </ion-card>
+  <ng-container *ngIf="players && players.length > 0">
+
+    <ion-card class="player-item" *ngFor="let player of players">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="{{getAvatar(player.id)}}">
+        </ion-avatar>
+        <h2 class="player-description">{{player.nickName}}</h2>
+      </ion-item>
+      <ion-card-content class="zorg-player-detail">
+        <div>
+          <p>{{player.firstName}} {{player.lastName}}</p>
+          <p>{{player.email}}</p>
+        </div>
+        <div>
+          <button ion-button color="danger" clear icon-only (click)="editPlayer(player)">
+            <ion-icon name="create"></ion-icon>
+          </button>
+
+          <button ion-button color="danger" clear icon-only (click)="delete(player)">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </div>
+
+
+      </ion-card-content>
+    </ion-card>
+  </ng-container>
+
+  <ion-fab right bottom>
+    <button ion-fab color="secondary" (click)="addPlayer()">
+      <ion-icon name="add"></ion-icon>
+    </button>
+  </ion-fab>
+</ion-content>

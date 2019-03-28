@@ -1,0 +1,166 @@
+<!--
+  Generated template for the PartyBetPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+  <ion-navbar color="secondary">
+    <ion-title>{{title}}</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+  <score-team [party]="currentParty" *ngIf="currentParty"></score-team>
+
+  <ion-card color="secondary" *ngIf="!partyFinish">
+    <ion-card-header>
+
+      <span>Maine N°{{currentParty && currentParty.contratList ? currentParty.contratList.length : 1}} {{ !partyStarting && !partyFinish ? ', les enchères' : ''}} :</span>
+    </ion-card-header>
+
+    <ion-card-content no-padding>
+      <div class="party-bet-container" *ngIf="currentContrat && !partyStarting">
+        <div class="dealer">
+          <strong>Dealer :</strong>
+          <ion-select [(ngModel)]="currentContrat.dealerId" interface="popover" *ngIf="currentContrat">
+            <ion-option *ngFor="let p of currentPlayers" [value]="p.id" [selected]="p.id == currentContrat.dealerId">
+              {{p.nickName}}</ion-option>
+          </ion-select>
+        </div>
+        <div class="player-betting">
+          <button ion-button color="danger" [outline]="lastPlayer !== currentParty.currentTeam1.player1"
+            (click)="clickPlayer(currentParty.currentTeam1.player1, true)">{{currentParty.currentTeam1.player1.nickName}}</button>
+          <button ion-button color="light" [outline]="lastPlayer !== currentParty.currentTeam2.player2"
+            (click)="clickPlayer(currentParty.currentTeam2.player2, false)">{{currentParty.currentTeam2.player2.nickName}}</button>
+        </div>
+        <div class="player-betting">
+          <button ion-button color="danger" [outline]="lastPlayer !== currentParty.currentTeam1.player2"
+            (click)="clickPlayer(currentParty.currentTeam1.player2, true)">{{currentParty.currentTeam1.player2.nickName}}</button>
+          <button ion-button color="light" [outline]="lastPlayer !== currentParty.currentTeam2.player1"
+            (click)="clickPlayer(currentParty.currentTeam2.player1, false)">{{currentParty.currentTeam2.player1.nickName}}</button>
+        </div>
+        <div class="score-betting">
+          <!-- <span *ngFor="let betScore of betScores" (click)="clickBet(betScore)">{{betScore}}</span> -->
+          <button ion-button color="default" [outline]="lastScore !== betScore" *ngFor="let betScore of betScores"
+            (click)="clickBet(betScore)"
+            [disabled]="(maxCurrentScore && betScore.value <= maxCurrentScore) || currentContre || currentSurContre">{{betScore.key}}</button>
+        </div>
+        <div class="couleur-betting">
+          <div class="couleur-betting-top">
+            <ng-container *ngFor="let betCouleur of betCouleurs">
+              <button ion-button color="default" class="couleur" [outline]="lastCouleur !== betCouleur"
+                *ngIf="betCouleur === 'pique' || betCouleur === 'coeur'" (click)="clickCouleur(betCouleur)"
+                [ngSwitch]="betCouleur">
+                <span *ngSwitchCase="'pique'" class="zs-icon-spades"></span>
+                <span *ngSwitchCase="'coeur'" class="zs-icon-heart red"></span>
+              </button>
+            </ng-container>
+          </div>
+          <div class="couleur-betting-bottom">
+            <ng-container *ngFor="let betCouleur of betCouleurs">
+              <button ion-button color="default" class="couleur" [outline]="lastCouleur !== betCouleur"
+                *ngIf="betCouleur !== 'pique' && betCouleur !== 'coeur'" (click)="clickCouleur(betCouleur)"
+                [ngSwitch]="betCouleur">
+                <span *ngSwitchCase="'carreau'" class="zs-icon-diamonds red"></span>
+                <span *ngSwitchCase="'trefle'" class="zs-icon-clubs"></span>
+              </button>
+            </ng-container>
+          </div>
+          <!-- <div class="couleur" *ngFor="let betCouleur of betCouleurs" (click)="clickCouleur(betCouleur)" [ngSwitch]="betCouleur">
+                
+              </div> -->
+        </div>
+
+        <ion-list no-lines>
+
+          <ion-item>
+            <ion-label>Contrée</ion-label>
+            <ion-toggle [(ngModel)]="currentContre" checked="false" (ionChange)="contre()"
+              [disabled]="currentContrat.enchereList.length === 0"></ion-toggle>
+          </ion-item>
+          <ion-item>
+            <ion-label>Sur-Contrée</ion-label>
+            <ion-toggle [(ngModel)]="currentSurContre" checked="false" (ionChange)="surContre()"
+              [disabled]="!currentContre"></ion-toggle>
+          </ion-item>
+        </ion-list>
+
+
+
+        <div class="team-infos">
+          <div class="team team1" [ngClass]="{'active': currentTeamActive === 1 }">
+            <div class="players">
+              <span>{{currentContrat.team1.player1.nickName}}</span>
+              <span>{{currentContrat.team1.player2.nickName}}</span>
+            </div>
+            <div class="bet" *ngIf="currentBetTeam1">
+              <span *ngIf="currentBetTeam1.nbPoints">{{currentBetTeam1.nbPoints.key}}</span>
+              <div *ngIf="currentBetTeam1.couleur" class="couleur-resume" [ngSwitch]="currentBetTeam1.couleur">
+                <span *ngSwitchCase="'pique'" class="zs-icon-spades"></span>
+                <span *ngSwitchCase="'coeur'" class="zs-icon-heart red"></span>
+                <span *ngSwitchCase="'carreau'" class="zs-icon-diamonds red"></span>
+                <span *ngSwitchCase="'trefle'" class="zs-icon-clubs"></span>
+              </div>
+            </div>
+          </div>
+          <div class="team team2" [ngClass]="{'active': currentTeamActive === 2 }">
+            <div class="players">
+              <span>{{currentContrat.team2.player1.nickName}}</span>
+              <span>{{currentContrat.team2.player2.nickName}}</span>
+            </div>
+            <div class="bet" *ngIf="currentBetTeam2">
+              <span *ngIf="currentBetTeam2.nbPoints">{{currentBetTeam2.nbPoints.key}}</span>
+              <div *ngIf="currentBetTeam2.couleur" class="couleur-resume" [ngSwitch]="currentBetTeam2.couleur">
+                <span *ngSwitchCase="'pique'" class="zs-icon-spades"></span>
+                <span *ngSwitchCase="'coeur'" class="zs-icon-heart red"></span>
+                <span *ngSwitchCase="'carreau'" class="zs-icon-diamonds red"></span>
+                <span *ngSwitchCase="'trefle'" class="zs-icon-clubs"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bottom-actions" *ngIf="currentContrat" no-padding>
+          <button ion-button color="secondary" (click)="previous()" [disabled]="currentContrat.enchereList.length === 0"
+            outline>
+            <<</button> <button ion-button color="secondary" (click)="start()"
+              [disabled]="currentContrat.enchereList.length === 0" item-right>Valider
+          </button>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="partyStarting && !partyFinish" color="secondary">
+    <ion-card-header>
+      Contrat en cours
+    </ion-card-header>
+    <ion-card-content *ngIf="currentContrat" class="zorg-card-content" no-padding>
+      <div class="bet">
+        <span>{{currentContrat.nbPoints}}</span>
+
+        <div class="couleur-resume" [ngSwitch]="currentContrat.couleur">
+          <span *ngSwitchCase="'pique'" class="zs-icon-spades"></span>
+          <span *ngSwitchCase="'coeur'" class="zs-icon-heart red"></span>
+          <span *ngSwitchCase="'carreau'" class="zs-icon-diamonds red"></span>
+          <span *ngSwitchCase="'trefle'" class="zs-icon-clubs"></span>
+        </div>
+
+        <span>{{currentContrat.contre && !currentContrat.surContre ? 'CONTRE' : ''}}</span>
+        <span>{{currentContrat.contre && currentContrat.surContre ? 'SUR-CONTRE' : ''}}</span>
+      </div>
+      <div class="actions">
+        <button ion-button color="secondary" (click)="lost()" outline>ECHEC</button>
+        <button ion-button color="secondary" (click)="win()">REUSSI</button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card *ngIf="partyFinish">
+    <ion-card-content class="win-content">
+      <h1>BRAVO !!! PARTIE TERMINEE</h1>
+      <img class="win" src="../../assets/imgs/win.png">
+    </ion-card-content>
+  </ion-card>
+</ion-content>

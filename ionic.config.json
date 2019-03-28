@@ -1,0 +1,7 @@
+{
+  "name": "ZorgScore",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
